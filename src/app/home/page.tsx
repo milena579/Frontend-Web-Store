@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       {/* <Menu op1="" op2="" ></Menu> */}
-      <div className="flex bg-blue-100 py-6 px-14 z-1 items-cenetr justify-center">
+      <div className="flex bg-teal-200	 py-6 px-14 z-1 items-cenetr justify-center">
         <h5>PRATA REAL</h5>
       </div>
       <div className="h-screen">

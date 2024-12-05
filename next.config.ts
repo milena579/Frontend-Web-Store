@@ -15,7 +15,11 @@ const nextConfig = {
         {
             source: "/produtos",
             destination: "/products"
-        }
+        },
+        {
+          source: "/login",
+          destination: "/login"
+      }
       ]
   }
 };

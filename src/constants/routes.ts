@@ -1,5 +1,6 @@
 export enum ROUTES {
     home = "/",
     cart = "/carrinho",
-    products = "/produtos"
+    products = "/produtos",
+    login = "/login"
 }
