@@ -7,7 +7,7 @@ interface ICard{
     status: string
 }
 
-export const card:React.FC<ICard>  = ({imagem, titulo, preco, status}) => {
+export const Card:React.FC<ICard> = ({imagem, titulo, preco, status}) => {
     return (
         <>
             <div className='card'>

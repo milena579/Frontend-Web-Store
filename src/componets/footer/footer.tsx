@@ -18,15 +18,6 @@ export const Footer = () => {
                 <hr/>
                 <div className='submenus'>
                     <div className='list'>
-                        <h4>MENU</h4>
-                        <p>Calça</p>
-                        <p>Camiseta</p>
-                        <p>Conjunto</p>
-                        <p>Jaqueta</p>
-                        <p>Vestido</p>
-                        <p></p>
-                    </div>
-                    <div className='list'>
                         <h4>INSTITUCIONAL</h4>
                         <p>Quem somos</p>
                     </div>

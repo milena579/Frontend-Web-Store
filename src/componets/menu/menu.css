@@ -9,7 +9,7 @@
 .menu{
     display: flex;
     justify-content: space-between;
-    padding: 30px 80px 30px 80px;
+    padding: 15px 80px 15px 80px;
     background-color:#CCBAEC;
     align-items: center;
     color: #4A327A;

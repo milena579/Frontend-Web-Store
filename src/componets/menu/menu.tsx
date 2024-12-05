@@ -2,6 +2,7 @@ import Link from 'next/link';
 import './menu.css';
 // import carrinho from '../../assets/carrinho.png'
 import {ROUTES} from "@/constants/routes"
+
 interface IMenu{
     op1: string,
     op2: string,
@@ -10,8 +11,8 @@ interface IMenu{
 export const Menu:React.FC<IMenu>  = ({op1, op2}) => {
     return (
         <>
-            <nav>
-                <div className="menu">
+            <nav className="flex flex-row px-14">
+                <div className="menu w-[80%]">
                     <Link href={ROUTES.home}>
                         <div className="logo">
                             <p>Nome logo</p>
