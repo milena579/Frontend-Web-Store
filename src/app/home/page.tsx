@@ -12,9 +12,6 @@ export default function Home() {
         <h5>PRATA REAL</h5>
       </div>
       <div className="h-[100vh]">
-        {/* <div className="banner h-[100%]">
-          <Card imagem="a" titulo="Colar de Pérolas" preco="29.90" status="a"></Card>
-        </div> */}
         <Carousel></Carousel>
       </div>
       <Footer></Footer>
