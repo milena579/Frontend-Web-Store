@@ -11,7 +11,7 @@ export default function Home() {
         <h5  className="text-teal-500 font-bold">PRATA REAL</h5>
       </div> */}
 
-      <Menu op1="" op2=""></Menu>
+      <Menu op1=""></Menu>
 
       {/* banner  */}
       <div className="w-full flex flex-col h-[45vh]" >

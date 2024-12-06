@@ -36,6 +36,12 @@
     max-height: 45%;
     justify-content: space-around;
 }
+.status{
+    width: 12px;
+    height: 12px;
+    background-color: green;
+    border-radius: 100%;
+}
 
 button{
     font-size: 10px;
@@ -44,6 +50,11 @@ button{
     border: none;
     font-weight: 500;
     cursor: pointer;
-    background-color: rgb(199, 255, 199);
+    background-color: rgb(217, 221, 217);
+}
+
+button:hover{
+    background-color: rgb(97, 196, 97);
+    color: white;
 }
 

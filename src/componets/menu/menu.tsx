@@ -5,13 +5,12 @@ import {ROUTES} from "@/constants/routes"
 
 interface IMenu{
     op1: string,
-    op2: string,
 }
 
-export const Menu:React.FC<IMenu>  = ({op1, op2}) => {
+export const Menu:React.FC<IMenu>  = ({op1}) => {
     return (
         <>
-            <nav className="flex flex-row px-14 text-teal-500">
+            <nav className="flex flex-row px-14 text-teal-500 shadow-lg shadow-cyan-300/50">
                 <div className="menu w-[80%]">
                     <Link href={ROUTES.home}>
                         <div className="logo">
@@ -21,7 +20,8 @@ export const Menu:React.FC<IMenu>  = ({op1, op2}) => {
                     <Link href={ROUTES.products}>Produtos</Link>
                     <div className="funcoes">
                         {/* <h5>Olá, {op1}</h5> */}
-                        <Link href={ROUTES.cart}><img src={op2}></img></Link>
+                        <Link href={ROUTES.user}></Link>
+                        <Link href={ROUTES.cart}></Link>
                     </div>
                 </div>
             </nav>
