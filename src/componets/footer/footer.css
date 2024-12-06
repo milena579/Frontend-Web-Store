@@ -7,9 +7,10 @@
 .footer {
     display: flex;
     flex-direction: column;
-    background-color: #CCBAEC;
     padding-left: 150px;
     padding-right: 150px;
+    bottom: 0%;
+    color: white;
 }
 
 .title {

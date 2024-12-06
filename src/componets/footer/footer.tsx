@@ -5,7 +5,7 @@ import './footer.css';
 export const Footer = () => {
     return (
         <>
-            <div className="footer">
+            <div className="footer bg-teal-500">
                 <div className='title'>
                     <div className="logo">
                         <p>Nome logo</p>

@@ -10,9 +10,8 @@
     display: flex;
     justify-content: space-between;
     padding: 15px 80px 15px 80px;
-    background-color:#CCBAEC;
     align-items: center;
-    color: #4A327A;
+    width: 100%;
 }
 
 .funcoes{
