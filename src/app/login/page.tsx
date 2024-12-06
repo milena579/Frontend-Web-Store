@@ -10,16 +10,63 @@ export default function Login(){
     const [senha, setSenha] =  useState<string>("")
 
     const [cadNome, setCadNome] =  useState<string>("")
-    const [cadDataNasc, setCadData] =  useState<string>("")
+    const [cadCpf, setCpf] =  useState<string>("")
     const [cadEmail, setCadEmail] =  useState<string>("")
     const [cadSenha, setCadSenha] =  useState<string>("")
     const [cadConfiSenha, setConfiSenha] =  useState<string>("")
 
+    const [error,setError] = useState<boolean>(false)
+
     const Logar = async () => {
+        try {
+            const response =  await fetch('http://localhost:8080/auth', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    login: email,
+                    password: senha
+                }),
+            });
+
+            const result = await response.json();
+            sessionStorage.setItem("Token", result.Token)
+            setError(false);
+
+        } catch (error) {
+            setError(true)
+        }
     }
 
     const Cadastrar = async () => {
-        
+        try {
+            const response =  await fetch('http://localhost:8080/user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nome: cadNome,
+                    email: cadEmail,
+                    cpf: cadCpf,
+                    password: cadSenha
+                }),
+            });
+
+            if(cadConfiSenha != cadSenha){
+                alert("As senhas devem ser iguais")
+            }
+
+            const result = await response.json();
+            sessionStorage.setItem("Token", result.Token)
+
+            setError(false);
+
+
+        } catch (error) {
+            setError(true)
+        }
     }
 
     return(
@@ -40,7 +87,7 @@ export default function Login(){
                             <label htmlFor="senha">Senha:</label>
                             <input type="password" name="senha" className="w-full h-8 border p-2" value={senha} onChange={(event) => {setSenha(event.target.value)}} />
                         </div>
-                        <button className="bg-teal-500 p-2 w-32 text-white rounded-md" onClick={() => {Logar()}}> <Link href={ROUTES.products}>Entrar</Link></button>
+                        <button className="bg-teal-500 p-2 w-32 text-white rounded-md" onClick={() => {Logar()}}>Entrar</button>
                     </div>
                 </div>
 
@@ -53,8 +100,8 @@ export default function Login(){
                         <input type="text" name="nome" className="w-full h-8 border p-2" value={cadNome} onChange={(event) => {setCadNome(event.target.value)}} />
                     </div>
                     <div className="flex flex-col gap-2 w-full">
-                        <label htmlFor="dataNasc">Data Nascimento</label>
-                        <input type="date" name="dataNasc" className="w-full h-8 border p-2" value={cadDataNasc} onChange={(event) => {setCadData(event.target.value)}} />
+                        <label htmlFor="cpf">CPF</label>
+                        <input type="text" name="cpf" className="w-full h-8 border p-2" value={cadCpf} onChange={(event) => {setCpf(event.target.value)}} />
                     </div>
                     <div className="flex flex-col gap-2 w-full">
                         <label htmlFor="email">Email:</label>

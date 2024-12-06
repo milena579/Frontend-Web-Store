@@ -1,43 +1,50 @@
-// export default function Cart(){
-//     return(
-//         <>
 
-//         </>
-//     )
-// }
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import {ROUTES} from "@/constants/routes";
 
-import React, { useState } from 'react';
 import './Carrinho.css';
 
-function Carrinho() {
-  const [produtos, setProdutos] = useState([
-    { id: 1, nome: 'Colar de Pérolas', preco: 29.9, entrega: 20, quantidade: 1 },
-    { id: 2, nome: 'Pulseira', preco: 15.9, entrega: 20, quantidade: 1 },
-  ]);
+interface IProduto{
+  id: number,
+  title: string, 
+  price: number,
+  status: boolean
+}
 
+interface ICart{
+  id: number,
+  totalPrice: number,
+  cartProduct : {id: number, quantity : number, totalPrice: number, product : IProduto}[]
+}
 
-  const atualizarQuantidade = (id, delta) => {
-    setProdutos((produtos) =>
-      produtos.map((produto) =>
-        produto.id === id
-          ? { ...produto, quantidade: Math.max(1, produto.quantidade + delta) }
-          : produto
-      )
-    );
+function Carrinho(){
+  const [produtos, setProdutos] = useState<IProduto[]>([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    if(!sessionStorage.get("Token")){
+      router.push(ROUTES.login);
+    }
+
+    const LoadData = async () => {
+      const response = await fetch('') {
+        //terminar colocando a autorização do token 
+      }
+    }
+  })
+
+  
+
+  const atualizarQuantidade = (id, mudanca) => {
+   
   };
 
 
   const removerProduto = (id) => {
-    setProdutos((produtos) => produtos.filter((produto) => produto.id !== id));
+
   };
 
-  
-
-
-
-  const subtotal = produtos.reduce((total, produto) => total + produto.preco * produto.quantidade, 0);
-  const entrega = 20;
-  const total = subtotal + entrega;
 
   return (
     <div className="carrinho-container">
@@ -49,7 +56,6 @@ function Carrinho() {
               <div className="produto-imagem"></div>
               <div>
                 <h3 className="produto-nome">{produto.nome}</h3>
-                <p className="produto-entrega">Entrega: R$ {produto.entrega.toFixed(2)}</p>
               </div>
             </div>
             <div className="produto-quantidade">
@@ -67,7 +73,6 @@ function Carrinho() {
       <div className="carrinho-resumo">
         <div className="resumo-valores">
           <p>Subtotal: R$ {subtotal.toFixed(2)}</p>
-          <p>Entrega: R$ {entrega.toFixed(2)}</p>
           <h3>Total: R$ {total.toFixed(2)}</h3>
         </div>
       </div>

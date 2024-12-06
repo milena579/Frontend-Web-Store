@@ -5,6 +5,13 @@ import { Footer } from "@/componets/footer/footer"
 import { Menu } from "@/componets/menu/menu"
 
 export default function Products(){
+    
+    interface IProduto{
+        id: number,
+        title: string, 
+        price: number,
+        status: boolean
+    }
 
     return(
         <>
