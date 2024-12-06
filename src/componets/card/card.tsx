@@ -19,6 +19,9 @@ export const Card:React.FC<ICard> = ({imagem, titulo, preco, status}) => {
                     </div>
                     <div className='preco font-bold'>R$:{preco}</div>
                     <div className='btn'><button>Adicionar</button></div>
+
+                    {/* <Image src={}></Image>
+                    <Image src={}></Image> */}
                 </div>
             </div>
         </>
