@@ -10,7 +10,6 @@ import { useEffect } from 'react';
 
 interface IMenu{
     op1: string,
-    op2: string
 }
 
 

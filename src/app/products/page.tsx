@@ -24,11 +24,11 @@ const verProdutos = async () => {
     }
     return(
         <>
-            <Menu op1="" op2=""></Menu>
+            <Menu op1="" ></Menu>
             <div className="py-36 flex px-4 flex-row w-full flex-wrap gap-10 items-center justify-center ">
                 {data.map((item) => {
                     return(
-                        <Card key={item.id} imagem={"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.lakishop.com.br%2Fcolar-coracao-pequeno-personalizado-folheado-em-prata-ate-duas-letras-corrente-veneziana&psig=AOvVaw029FzSI2KysivYenC3qKzP&ust=1733668860524000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCICt9vvxlYoDFQAAAAAdAAAAABAE"} titulo={item.title} preco={item.price} status={item.status}></Card>
+                        <Card key={item.id} imagem={"https://images.tcdn.com.br/img/img_prod/1117770/colar_coracao_pequeno_personalizado_folheado_em_prata_ate_duas_letras_corrente_veneziana_527_2_4a276b18647953a1030527405f826141.jpg"} titulo={item.title} preco={item.price} status={item.status}></Card>
                     )
                 }
                 )}
