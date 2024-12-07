@@ -11,7 +11,7 @@ export const Card:React.FC<ICard> = ({imagem, titulo, preco, status}) => {
     return (
         <>
             <div className='card'>
-                <div className='foto'><img src={imagem}></img></div>
+                <div className='foto'><img src={String(imagem)}></img></div>
                 <div className='info' >
                     <div className='flex gap-4 items-center w-full justify-center'>
                         <div className='titulo'>{titulo}</div>

@@ -14,7 +14,7 @@ interface IMenu{
 }
 
 
-export const Menu:React.FC<IMenu>  = ({op1, op2}) => {
+export const Menu:React.FC<IMenu>  = ({op1}) => {
     // const pegarUser = async () => {
     // var data:
     // useEffect(()=>{
@@ -22,12 +22,11 @@ export const Menu:React.FC<IMenu>  = ({op1, op2}) => {
            
     //     }
     //     const load = async()=>{
-    //         const res = await fetch("http://localhost:8080/cart/",{
+    //         const res = await fetch("http://localhost:8080/user/",{
     //             headers:{
     //                 'authorization': `${sessionStorage.getItem("Token")}`
     //             }
     //         })
-
            
     //         const dataJson = await res.json()
     //         setData(dataJson)
@@ -51,7 +50,7 @@ export const Menu:React.FC<IMenu>  = ({op1, op2}) => {
                         <Image width={24} height={24} src={cart} alt="carrinho" priority></Image>
 
                         <div className='flex items-center gap-4 justify-around w-[30%]'>
-                            <h1 className='opacity-100'>Olá fulano {op2}</h1>
+                            <h1 className='opacity-100'>Olá fulano {op1}</h1>
                             <Image width={54} height={24} src={user} alt="user"></Image>  
                         </div>
                     </div>

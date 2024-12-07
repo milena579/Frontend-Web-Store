@@ -7,11 +7,11 @@ import {ROUTES} from "@/constants/routes";
 
 export default function Login(){
 
-    const [email, setEdv] =  useState<string>("")
+    const [email, setEmail] =  useState<string>("")
     const [senha, setSenha] =  useState<string>("")
 
     const [cadNome, setCadNome] =  useState<string>("")
-    const [cadCpf, setCpf] =  useState<string>("")
+    const [cadCpf, setCadCpf] =  useState<string>("")
     const [cadEmail, setCadEmail] =  useState<string>("")
     const [cadSenha, setCadSenha] =  useState<string>("")
     const [cadConfiSenha, setConfiSenha] =  useState<string>("")
@@ -36,22 +36,31 @@ export default function Login(){
 
             const result = await response.json();
             
-            if(response.status === 500){
+            if(response.status > 400 && response.status < 500 ){
                 setError(true)
+                alert(result.message);
             }else{
                 sessionStorage.setItem("Token", "Bearer " + result.token)
-                sessionStorage.setItem("id", result.id)
                 setError(false);
                 router.push("/products")
             }
             console.log(result)
 
-        } catch (error) {
+        } catch (erro) {
             setError(true)
         }
     }
 
     const Cadastrar = async () => {
+
+        if(cadNome == "" || cadEmail == "" || cadCpf == "" || cadSenha == ""){
+            alert("Todos os campos devem ser preenchidos!")
+        }
+
+        if(cadConfiSenha != cadSenha){
+            alert("A senhas devem ser iguais")
+        }
+
         try {
             const response =  await fetch('http://localhost:8080/user', {
                 method: 'POST',
@@ -67,25 +76,17 @@ export default function Login(){
                 }),
             });
 
-            if(cadNome == "" || email == "" || cadCpf == "" || cadSenha == ""){
-                alert("Todos os campos devem ser preenchidos!")
-            }
+            console.log(response);
 
-            if(cadConfiSenha != cadSenha){
-                alert("A senhas devem ser iguais")
-            }
-
-            const result = await response.json();
             if(response.status === 500){
                 setError(true)
             }else{
                 setError(false)
                 alert("Cadastro criado com sucesso!")
             }
-            console.log(result)
         } 
         
-        catch (error) {
+        catch (erro) {
             setError(true)
         };
     }
@@ -102,7 +103,7 @@ export default function Login(){
                         </div>
                         <div className="flex flex-col gap-2 w-full">
                             <label htmlFor="email">Email:</label>
-                            <input type="email" name="email" className="w-full h-8 border p-2" value={email} onChange={(event) => {setEdv(event.target.value)}} />
+                            <input type="email" name="email" className="w-full h-8 border p-2" value={email} onChange={(event) => {setEmail(event.target.value)}} />
                         </div>
                         <div className="flex flex-col gap-2 w-full">
                             <label htmlFor="senha">Senha:</label>
@@ -122,7 +123,7 @@ export default function Login(){
                     </div>
                     <div className="flex flex-col gap-2 w-full">
                         <label htmlFor="cpf">CPF</label>
-                        <input type="text" name="cpf" className="w-full h-8 border p-2" value={cadCpf} onChange={(event) => {setCpf(event.target.value)}} />
+                        <input type="text" name="cpf" className="w-full h-8 border p-2" value={cadCpf} onChange={(event) => {setCadCpf(event.target.value)}} />
                     </div>
                     <div className="flex flex-col gap-2 w-full">
                         <label htmlFor="email">Email:</label>
