@@ -34,6 +34,7 @@ const verProdutos = async () => {
                 )}
             </div>
             <Footer/>    
+            
         </>
     )
 }
