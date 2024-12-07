@@ -13,7 +13,7 @@ export default function Home() {
         <h5  className="text-teal-500 font-bold">PRATA REAL</h5>
       </div> */}
 
-      <Menu op1=""></Menu>
+      <Menu op1="" op2=""></Menu>
 
       {/* banner  */}
       
@@ -26,8 +26,6 @@ export default function Home() {
       </div>
 
       <div className="py-36 flex px-4 flex-row w-full flex-wrap gap-10 items-center justify-center">
-        {/* <Card imagem="" titulo="Colar coração" preco="150,90" status=""></Card>
-        <Card imagem="" titulo="Colar coração" preco="150,90" status=""></Card> */}
       </div>
       <Footer></Footer>
     </>

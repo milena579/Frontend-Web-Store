@@ -23,7 +23,7 @@ export default function Products(){
         }
         return(
             <>
-                <Menu op1=""></Menu>
+                <Menu op1="" op2=""></Menu>
                 <div className="py-36 flex px-4 flex-row w-full flex-wrap gap-10 items-center justify-center ">
                     {data.map((item) => {
                         return(

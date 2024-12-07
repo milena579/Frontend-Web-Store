@@ -19,7 +19,11 @@ const nextConfig = {
         {
           source: "/login",
           destination: "/login"
-      }
+        },
+        {
+            source: "/profile",
+            destination: "/profile"
+          }
       ]
   }
 };
