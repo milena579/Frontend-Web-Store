@@ -34,8 +34,6 @@ function Carrinho(){
     }
   })
 
-  
-
   const atualizarQuantidade = (id, mudanca) => {
    
   };

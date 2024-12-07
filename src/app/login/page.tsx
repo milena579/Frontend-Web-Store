@@ -1,8 +1,9 @@
 "use client"
 import Link from 'next/link';
-import { ROUTES } from "@/constants/routes"
 import { useState } from 'react';
 import { Menu } from '@/componets/menu/menu';
+import { useRouter } from 'next/navigation';
+import {ROUTES} from "@/constants/routes";
 
 export default function Login(){
 
@@ -16,6 +17,9 @@ export default function Login(){
     const [cadConfiSenha, setConfiSenha] =  useState<string>("")
 
     const [error,setError] = useState<boolean>(false)
+
+    const router = useRouter();
+
 
     const Logar = async () => {
         try {
@@ -31,8 +35,16 @@ export default function Login(){
             });
 
             const result = await response.json();
-            sessionStorage.setItem("Token", result.Token)
-            setError(false);
+            
+            if(response.status === 500){
+                setError(true)
+            }else{
+                sessionStorage.setItem("Token", "Bearer " + result.token)
+                sessionStorage.setItem("id", result.id)
+                setError(false);
+                router.push("/products")
+            }
+            console.log(result)
 
         } catch (error) {
             setError(true)
@@ -47,26 +59,35 @@ export default function Login(){
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    nome: cadNome,
+                    name: cadNome,
                     email: cadEmail,
                     cpf: cadCpf,
-                    password: cadSenha
+                    password: cadSenha,
+                    actvAccount: "true"
                 }),
             });
 
+            if(cadNome == "" || email == "" || cadCpf == "" || cadSenha == ""){
+                alert("Todos os campos devem ser preenchidos!")
+            }
+
             if(cadConfiSenha != cadSenha){
-                alert("As senhas devem ser iguais")
+                alert("A senhas devem ser iguais")
             }
 
             const result = await response.json();
-            sessionStorage.setItem("Token", result.Token)
-
-            setError(false);
-
-
-        } catch (error) {
+            if(response.status === 500){
+                setError(true)
+            }else{
+                setError(false)
+                alert("Cadastro criado com sucesso!")
+            }
+            console.log(result)
+        } 
+        
+        catch (error) {
             setError(true)
-        }
+        };
     }
 
     return(
@@ -115,7 +136,7 @@ export default function Login(){
                         <label htmlFor="confirmsenha"> Confirmar Senha:</label>
                         <input type="password" name="confirmsenha" className="w-full h-8 border p-2" value={cadConfiSenha} onChange={(event) => {setConfiSenha(event.target.value)}} />
                     </div>
-                    <button className="bg-teal-500 p-2 w-32 text-white rounded-md" onClick={() => {Cadastrar()}}> <Link href={ROUTES.products}>Cadastrar</Link></button>
+                    <button className="bg-teal-500 p-2 w-32 text-white rounded-md" onClick={() => {Cadastrar()}}> Cadastrar</button>
                 </div>
             </div>
         </>

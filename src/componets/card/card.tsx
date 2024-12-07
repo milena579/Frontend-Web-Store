@@ -3,8 +3,8 @@ import './card.css';
 interface ICard{
     imagem: string,
     titulo: string,
-    preco: string,
-    status: string
+    preco: number,
+    status: boolean
 }
 
 export const Card:React.FC<ICard> = ({imagem, titulo, preco, status}) => {

@@ -1,3 +1,5 @@
+"use client"
+
 import { Card } from "@/componets/card/card";
 import { Footer } from "@/componets/footer/footer";
 import { Menu } from "@/componets/menu/menu";
@@ -14,6 +16,7 @@ export default function Home() {
       <Menu op1=""></Menu>
 
       {/* banner  */}
+      
       <div className="w-full flex flex-col h-[45vh]" >
         <div className="flex w-[50%] items-center justify-center flex-col gap-4 absolute top-48 z-10 h-auto">
           <h1 className="text-branco">Aproveite os tempos festivos e presenteie alguém!</h1>
@@ -22,8 +25,9 @@ export default function Home() {
         <Image src={banner} alt="banner" className="object-cover h-96" priority></Image>
       </div>
 
-      <div className="h-screen p-20">
-        <Card imagem="" titulo="Colar coração" preco="150,90" status=""></Card>
+      <div className="py-36 flex px-4 flex-row w-full flex-wrap gap-10 items-center justify-center">
+        {/* <Card imagem="" titulo="Colar coração" preco="150,90" status=""></Card>
+        <Card imagem="" titulo="Colar coração" preco="150,90" status=""></Card> */}
       </div>
       <Footer></Footer>
     </>
