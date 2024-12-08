@@ -114,10 +114,6 @@ export default function adm() {
                 }),
             });
 
-            if(name == ""){
-                alert("Todos os campos devem ser preenchidos!")
-                return
-            }
 
             const result = await response.json();
             if(response.status === 500){
