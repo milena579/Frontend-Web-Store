@@ -3,6 +3,7 @@ export enum ROUTES {
     cart = "/carrinho",
     products = "/produtos",
     login = "/login",
-    profile = "/profile"
+    profile = "/profile",
+    adm = "/adm"
 
 }
