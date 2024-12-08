@@ -9,7 +9,6 @@ import cart from "/public/shopping-cart.png";
 import user from "/public/user.png";
 import { useEffect, useState } from 'react';
 
-
 interface IMenu{
     op1?: string,
 }
