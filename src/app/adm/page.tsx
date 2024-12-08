@@ -49,6 +49,7 @@ export default function adm() {
     const [name, setName] = useState<string>("");
     const [imagem, setImagem] = useState<string>("");
     const [error, setError] = useState<boolean>(false);
+    const router = useRouter();
 
     const products = async () => {
         var data: IProduto[] = []
@@ -184,12 +185,18 @@ export default function adm() {
             }
 
             const result = await response.json();
-            if(response.status === 500){
-                setError(true)
+            if(response.status >= 400 && response.status < 500){
+                response.status;
+                setError(true);
             }else{
-                setError(false)
-                alert("Produto criado com sucesso!")
+                setError(false);
+                alert("Produto criado com sucesso!");
                 closeProductModal();
+                setTitle("");
+                setPrice(0);
+                setCategory(0);
+                setImagem("");
+                redirect(ROUTES.adm)
             }
             console.log(result)
         } 
@@ -226,7 +233,7 @@ export default function adm() {
 
     return (
         <>
-            <Menu op1="" op2=""></Menu>
+            <Menu op1=""></Menu>
             <div className="mt-16">
                 <div className="flex justify-end mr-28 gap-16">
                     <button onClick={openProductModal} className="bg-cyan-300/50 p-1 pl-6 pr-6 rounded-[5px]">Novo produto</button>
@@ -304,7 +311,7 @@ export default function adm() {
                 {/* Modais */}
 
                 <Modal isOpen={modalCategory} children={
-                    <div className="p-6 flex flex-col w-96 inset-0 bg-opacity-50 z-50">
+                    <div className="p-6 flex flex-col w-96 fixed bg-opacity-50 z-50">
                         <h2 className="text-xl font-semibold">Nova categoria</h2>
                         <form className="flex flex-col">
                             <label htmlFor="" className="mt-8">Nome</label>
@@ -319,7 +326,7 @@ export default function adm() {
                 </Modal>
 
                 <Modal isOpen={modalEditCategory} children={
-                    <div className="p-6 flex flex-col w-96 inset-0 bg-opacity-50 z-50">
+                    <div className="p-6 flex flex-col w-96 bg-opacity-50 z-50">
                         <h2 className="text-xl font-semibold">Editar categoria</h2>
                         <form className="flex flex-col">
                             <label htmlFor="" className="mt-8">ID</label>
@@ -336,7 +343,7 @@ export default function adm() {
                 </Modal>
 
                 <Modal isOpen={modalProduct} children={
-                    <div className="p-6 flex flex-col w-96 inset-0 bg-opacity-50 z-50">
+                    <div className="p-6 flex flex-col w-96 bg-opacity-50 z-50">
                         <h2 className="text-xl font-semibold">Novo produto</h2>
                         <form className="flex flex-col">
                             <label htmlFor="" className="mt-8">Título</label>
@@ -357,7 +364,7 @@ export default function adm() {
                 </Modal>
 
                 <Modal isOpen={modalEditProduct} children={
-                    <div className="p-6 flex flex-col w-96 inset-0 bg-opacity-50 z-50">
+                    <div className="p-6 flex flex-col w-96 bg-opacity-50 z-50">
                         <h2 className="text-xl font-semibold">Editar produto</h2>
                         <form className="flex flex-col">
                             <label htmlFor="" className="mt-8">ID</label>
