@@ -5,8 +5,8 @@ import './menu.css';
 // import carrinho from '../../assets/carrinho.png'
 import {ROUTES} from "@/constants/routes"
 import Image from "next/image";
-import cart from "/public/shopping-cart.png";
-import user from "/public/user.png";
+import cart from "@/app/assets/shopping-cart.png";
+import user from "@/app/assets/user.png";
 import { useEffect, useState } from 'react';
 
 interface IMenu{
