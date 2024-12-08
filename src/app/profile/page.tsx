@@ -87,10 +87,9 @@ const Profile = () => {
         }),
       });
   
-      const result = await response.json();
-  
+    
       if (!response.ok) {
-        alert(`Erro ao atualizar cadastro: ${result.message}`);
+        alert(`Erro ao atualizar cadastro`);
         setError(true);
       } else {
         alert("Cadastro atualizado com sucesso!");

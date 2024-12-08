@@ -78,7 +78,8 @@ export default function Login(){
 
             console.log(response);
 
-            if(response.status === 500){
+            if(response.status >= 400 && response.status < 500){
+                response.status
                 setError(true)
             }else{
                 setError(false)

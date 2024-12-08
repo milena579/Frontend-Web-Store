@@ -4,10 +4,11 @@ interface ICard{
     imagem: string,
     titulo: string,
     preco: number,
-    status: boolean
+    status: boolean,
+    onAdd : () => void;
 }
 
-export const Card:React.FC<ICard> = ({imagem, titulo, preco, status}) => {
+export const Card:React.FC<ICard> = ({imagem, titulo, preco, status, onAdd}) => {
     return (
         <>
             <div className='card'>
@@ -18,10 +19,7 @@ export const Card:React.FC<ICard> = ({imagem, titulo, preco, status}) => {
                         <div className='status'>{status}</div>
                     </div>
                     <div className='preco font-bold'>R$:{preco}</div>
-                    <div className='btn'><button>Adicionar</button></div>
-
-                    {/* <Image src={}></Image>
-                    <Image src={}></Image> */}
+                    <div className='btn' onClick={onAdd}><button>Adicionar</button></div>
                 </div>
             </div>
         </>
