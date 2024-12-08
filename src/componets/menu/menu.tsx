@@ -33,14 +33,14 @@ export const Menu: React.FC<IMenu> = ({ op1 }) => {
       });
 
       if (!response.ok) {
-        console.error("Erro ao buscar dados do usuário:", response.statusText);
+        console.log("Erro ao buscar dados do usuário:", response.statusText);
         return;
       }
 
       const data = await response.json();
       setUserName(data.name ); 
     } catch (error) {
-      console.error("Erro ao buscar os dados do usuário:", error);
+      console.log("Erro ao buscar os dados do usuário:", error);
     }
   };
 

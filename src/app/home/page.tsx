@@ -5,7 +5,7 @@ import { Menu } from "@/componets/menu/menu";
 import {ROUTES} from "@/constants/routes";
 
 import Image from "next/image";
-import banner from "/public/banner.png";
+import banner from "@/app/assets/banner.png";
 import Link from "next/link";
 export default function Home() {
   return (
