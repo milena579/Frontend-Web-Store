@@ -103,6 +103,11 @@ export default function adm() {
 
     const addCategory = async () => {
         try {
+            if(name == ""){
+                alert("Todos os campos devem ser preenchidos!")
+                return
+            }
+
             const response =  await fetch('http://localhost:8080/category', {
                 method: 'POST',
                 headers: {
@@ -217,12 +222,12 @@ export default function adm() {
 
     
     const closeCategoryModal = () => setModalCategory(false);
-    const openCategoryModal = () => setModalEditCategory(true);
+    const openCategoryModal = () => setModalCategory(true);
     const closeEditCategoryModal = () => setModalEditCategory(false);
     
     const openEditCategoryModal = (data: ICategory) => {
         setSelectedCategory(data);
-        setModalCategory(true);
+        setModalEditCategory(true);
     }
 
     const openProductModal = () => setModalProduct(true);
