@@ -1,13 +1,18 @@
 'use client';
 
+import { ROUTES } from "@/constants/routes"
 import { Card } from "@/componets/card/card";
 import { Menu } from "@/componets/menu/menu";
 import { Modal } from "@/componets/modal/modal";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
+import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+
 import pencil from "@/app/assets/pencil.png";
 import trash from "@/app/assets/delete.png"
+import { title } from "process";
 
 interface IProduto {
     id: number,
@@ -31,6 +36,14 @@ export default function adm() {
     
     const [data, setData] = useState<IProduto[]>([]);
     const [dataCategories, setDataCategories] = useState<ICategory[]>([]);
+
+    const [title, setTitle] = useState<string>("");
+    const [status, setStatus] = useState<boolean>(true);
+    const [price, setPrice] = useState<number>();
+    const [category, setCategory] = useState<number>();
+    const [name, setName] = useState<string>("");
+    const [error, setError] = useState<boolean>(false)
+    const router = useRouter();
 
     const products = async () => {
         var data: IProduto[] = []
@@ -73,6 +86,77 @@ export default function adm() {
             setDataCategories([{ "id": 0, "name": "ERRO AO CARREGAR CATEGORIAS"}]);
         }
     };
+
+    const addCategory = async () => {
+        try {
+            const response =  await fetch('http://localhost:8080/category', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `${sessionStorage.getItem("Token")}`
+                },
+                body: JSON.stringify({
+                    name: name
+                }),
+            });
+
+            if(name == ""){
+                alert("Todos os campos devem ser preenchidos!")
+                return
+            }
+
+            const result = await response.json();
+            if(response.status === 500){
+                setError(true)
+            }else{
+                setError(false)
+                alert("Categoria criada com sucesso!")
+                closeCategoryModal();
+            }
+            console.log(result)
+        } 
+        
+        catch (error) {
+            setError(true)
+        };
+    }
+
+    const addProduct = async () => {
+        try {
+            const response =  await fetch('http://localhost:8080/product', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `${sessionStorage.getItem("Token")}`
+                },
+                body: JSON.stringify({
+                    title: title,
+                    category: category,
+                    price: price,
+                    status: true
+                }),
+            });
+
+            if(title == "" || price == null || category == null || status == null){
+                alert("Todos os campos devem ser preenchidos!")
+                return
+            }
+
+            const result = await response.json();
+            if(response.status === 500){
+                setError(true)
+            }else{
+                setError(false)
+                alert("Produto criado com sucesso!")
+                closeProductModal();
+            }
+            console.log(result)
+        } 
+        
+        catch (error) {
+            setError(true)
+        };
+    }
 
     useEffect(() => {
         products();
@@ -177,7 +261,7 @@ export default function adm() {
                         </form>
                         <div className="flex justify-between">
                             <button onClick={closeCategoryModal} className="flex justify-center items-center h-8 text-[15px] bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600">Cancelar</button>
-                            <button onClick={closeCategoryModal} className="flex justify-center items-center h-8 text-[15px] bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">Adicionar categoria</button>
+                            <button onClick={() => { addCategory() }} className="flex justify-center items-center h-8 text-[15px] bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">Adicionar categoria</button>
                         </div>
                     </div>
                 }>
@@ -188,7 +272,7 @@ export default function adm() {
                         <h2 className="text-xl font-semibold">Editar categoria</h2>
                         <form className="flex flex-col">
                             <label htmlFor="" className="mt-8">Nome</label>
-                            <input type="text" placeholder="Nome da categoria" className="border-2 rounded-[5px] p-1 mt-2 mb-10"></input>
+                            <input type="text" placeholder="Nome da categoria" value={name} className="border-2 rounded-[5px] p-1 mt-2 mb-10"></input>
                         </form>
                         <div className="flex justify-between">
                             <button onClick={closeEditCategoryModal} className="flex justify-center items-center h-8 text-[15px] bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600">Cancelar</button>
@@ -203,17 +287,15 @@ export default function adm() {
                         <h2 className="text-xl font-semibold">Novo produto</h2>
                         <form className="flex flex-col">
                             <label htmlFor="" className="mt-8">Título</label>
-                            <input type="text" placeholder="Título do produto" className="border-2 rounded-[5px] p-1 mt-2"></input>
+                            <input type="text" placeholder="Título do produto" value={title} onChange={(e) => { setTitle(e.target.value) }} className="border-2 rounded-[5px] p-1 mt-2"></input>
                             <label htmlFor="" className="mt-4">Preço</label>
-                            <input type="number" placeholder="Preço do produto" className="border-2 rounded-[5px] p-1 mt-2"></input>
-                            <label htmlFor="" className="mt-4">Status</label>
-                            <input type="text" placeholder="Status do produto" className="border-2 rounded-[5px] p-1 mt-2"></input>
+                            <input type="number" placeholder="Preço do produto" value={price} onChange={(e) => { setPrice(Number(e.target.value)) }} className="border-2 rounded-[5px] p-1 mt-2"></input>
                             <label htmlFor="" className="mt-4">Categoria</label>
-                            <input type="number" placeholder="Categoria do produto" className="border-2 rounded-[5px] p-1 mt-2 mb-10"></input>
+                            <input type="number" placeholder="Categoria do produto" value={category} onChange={(e) => { setCategory(Number(e.target.value)) }} className="border-2 rounded-[5px] p-1 mt-2 mb-10"></input>
                         </form>
                         <div className="flex justify-between">
                             <button onClick={closeProductModal} className="flex justify-center items-center h-8 text-[15px] bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600">Cancelar</button>
-                            <button onClick={closeProductModal} className="flex justify-center items-center h-8 text-[15px] bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">Adicionar produto</button>
+                            <button onClick={() => { addProduct() }} className="flex justify-center items-center h-8 text-[15px] bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">Adicionar produto</button>
                         </div>
                     </div>
                 }>
