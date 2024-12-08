@@ -94,8 +94,8 @@ export default function adm() {
             <Menu op1="" op2=""></Menu>
             <div className="mt-16">
                 <div className="flex justify-end mr-28 gap-16">
-                    <button onClick={openProductModal} className="bg-cyan-300/50 p-1 pl-6 pr-6 rounded-[5px]">New Product</button>
-                    <button onClick={openCategoryModal} className="bg-cyan-300/50 p-1 pl-6 pr-6 rounded-[5px]">New category</button>
+                    <button onClick={openProductModal} className="bg-cyan-300/50 p-1 pl-6 pr-6 rounded-[5px]">Novo produto</button>
+                    <button onClick={openCategoryModal} className="bg-cyan-300/50 p-1 pl-6 pr-6 rounded-[5px]">Nova categoria</button>
                 </div>
 
                 <div className="mt-24 flex justify-center">
