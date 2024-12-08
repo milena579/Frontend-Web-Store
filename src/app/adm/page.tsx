@@ -35,15 +35,20 @@ export default function adm() {
     const [modalEditProduct, setModalEditProduct] = useState(false);
     
     const [data, setData] = useState<IProduto[]>([]);
+    const [idProduct, setIdProduct] = useState<number>()
     const [dataCategories, setDataCategories] = useState<ICategory[]>([]);
+    const [idCategory, setIdCategory] = useState<number>()
+
+    const [selectedCategory, setSelectedCategory] = useState<ICategory>();
+    const [selectedProduct, setSelectedProduct] = useState<IProduto>();
 
     const [title, setTitle] = useState<string>("");
     const [status, setStatus] = useState<boolean>(true);
     const [price, setPrice] = useState<number>();
     const [category, setCategory] = useState<number>();
     const [name, setName] = useState<string>("");
-    const [error, setError] = useState<boolean>(false)
-    const router = useRouter();
+    const [imagem, setImagem] = useState<string>("");
+    const [error, setError] = useState<boolean>(false);
 
     const products = async () => {
         var data: IProduto[] = []
@@ -63,7 +68,7 @@ export default function adm() {
         var data: IProduto[] = []
 
         try {
-            const res = await fetch(`http://localhost:8080/product/{id}`);
+            const res = await fetch(`http://localhost:8080/product/?id=${idProduct}`);
             const data = await res.json();
             setData(data);
             console.log(data);
@@ -121,6 +126,41 @@ export default function adm() {
         };
     }
 
+    const updateCategory = async () => {
+        try {
+            const response =  await fetch(`http://localhost:8080/category/?id=${idCategory}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `${sessionStorage.getItem("Token")}`
+                },
+                body: JSON.stringify({
+                    name: name
+                }),
+            });
+
+            if(name == ""){
+                alert("Todos os campos devem ser preenchidos!")
+                return
+            }
+
+            const result = await response.json();
+            if(response.status === 500){
+                setError(true)
+            }else{
+                setError(false)
+                alert("Categoria criada com sucesso!")
+                closeCategoryModal();
+            }
+            console.log(result)
+        } 
+        
+        catch (error) {
+            setError(true)
+        };
+    }
+
+
     const addProduct = async () => {
         try {
             const response =  await fetch('http://localhost:8080/product', {
@@ -133,11 +173,12 @@ export default function adm() {
                     title: title,
                     category: category,
                     price: price,
-                    status: true
+                    status: true,
+                    imagem: imagem
                 }),
             });
 
-            if(title == "" || price == null || category == null || status == null){
+            if(title == "" || price == null || category == null || status == null || imagem == ""){
                 alert("Todos os campos devem ser preenchidos!")
                 return
             }
@@ -163,14 +204,24 @@ export default function adm() {
         categories();
     }, []);
 
-    const openCategoryModal = () => setModalCategory(true);
+    
     const closeCategoryModal = () => setModalCategory(false);
-    const openEditCategoryModal = () => setModalEditCategory(true);
+    const openCategoryModal = () => setModalEditCategory(true);
     const closeEditCategoryModal = () => setModalEditCategory(false);
     
+    const openEditCategoryModal = (data: ICategory) => {
+        setSelectedCategory(data);
+        setModalCategory(true);
+    }
+
     const openProductModal = () => setModalProduct(true);
     const closeProductModal = () => setModalProduct(false);
-    const openEditProductModal = () => setModalEditProduct(true);
+    
+    const openEditProductModal = (data: IProduto) => {
+        setSelectedProduct(data);
+        setModalEditProduct(true);
+    }
+
     const closeEditProductModal = () => setModalEditProduct(false);
 
     return (
@@ -208,7 +259,7 @@ export default function adm() {
                                                 <td className="justify-center flex w-[20%] h-full border-b-2 p-2">{item.category}</td>
                                                 <td className="justify-center flex w-[20%] h-full border-b-2 p-2">{item.price}</td>
                                                 <td className="justify-center flex w-[20%] h-full border-b-2 p-2">{item.status ? "Disponível" : "Indisponível"}</td>
-                                                <td className="justify-center flex w-[20%] h-full border-b-2 p-2"><Image src={pencil} onClick={openEditProductModal} alt="" className="w-4 h-4 cursor-pointer"/></td>
+                                                <td className="justify-center flex w-[20%] h-full border-b-2 p-2"><Image src={pencil} onClick={() => {openEditProductModal(item)}} alt="" className="w-4 h-4 cursor-pointer"/></td>
                                                 <td className="justify-center flex w-[20%] h-full border-b-2 p-2"><Image src={trash} alt="" className="w-4 h-4 cursor-pointer"/></td>
                                             </tr>
                                         </tbody>
@@ -236,7 +287,7 @@ export default function adm() {
                                             <tr key={item.id} className="flex w-full h-14">
                                                 <td className="justify-center flex w-[25%] h-full border-b-2 p-2">{item.id}</td>
                                                 <td className="justify-start flex w-[25%] h-full border-b-2 p-2">{item.name}</td>
-                                                <td className="justify-center flex w-[25%] h-full border-b-2 p-2"><button onClick={openEditCategoryModal}><Image src={pencil} alt="" className="w-4 h-4 cursor-pointer"/></button></td>
+                                                <td className="justify-center flex w-[25%] h-full border-b-2 p-2"><button onClick={() => {openEditCategoryModal(item)}}><Image src={pencil} alt="" className="w-4 h-4 cursor-pointer"/></button></td>
                                                 <td className="justify-center flex w-[25%] h-full border-b-2 p-2"><Image src={trash} alt="" className="w-4 h-4 cursor-pointer"/></td>
                                             </tr>
                                         </tbody>
@@ -253,11 +304,11 @@ export default function adm() {
                 {/* Modais */}
 
                 <Modal isOpen={modalCategory} children={
-                    <div className="p-6 flex flex-col w-80 z-50">
+                    <div className="p-6 flex flex-col w-96 inset-0 bg-opacity-50 z-50">
                         <h2 className="text-xl font-semibold">Nova categoria</h2>
                         <form className="flex flex-col">
                             <label htmlFor="" className="mt-8">Nome</label>
-                            <input type="text" placeholder="Nome da categoria" className="border-2 rounded-[5px] p-1 mt-2 mb-10"></input>
+                            <input type="text" placeholder="Nome da categoria" value={name} onChange={(e) => { setName(e.target.value) }} className="border-2 rounded-[5px] p-1 mt-2 mb-10"></input>
                         </form>
                         <div className="flex justify-between">
                             <button onClick={closeCategoryModal} className="flex justify-center items-center h-8 text-[15px] bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600">Cancelar</button>
@@ -268,11 +319,13 @@ export default function adm() {
                 </Modal>
 
                 <Modal isOpen={modalEditCategory} children={
-                    <div className="p-6 flex flex-col w-80 z-50">
+                    <div className="p-6 flex flex-col w-96 inset-0 bg-opacity-50 z-50">
                         <h2 className="text-xl font-semibold">Editar categoria</h2>
                         <form className="flex flex-col">
-                            <label htmlFor="" className="mt-8">Nome</label>
-                            <input type="text" placeholder="Nome da categoria" value={name} className="border-2 rounded-[5px] p-1 mt-2 mb-10"></input>
+                            <label htmlFor="" className="mt-8">ID</label>
+                            <input type="text" placeholder="Id da categoria" readOnly value={selectedCategory?.id} onChange={(e) => { setIdCategory(Number(e.target.value)) }} className="border-2 rounded-[5px] p-1 mt-2"></input>
+                            <label htmlFor="" className="mt-4">Nome</label>
+                            <input type="text" placeholder="Nome da categoria" value={selectedCategory?.name} onChange={(e) => { setName(e.target.value) }} className="border-2 rounded-[5px] p-1 mt-2 mb-10"></input>
                         </form>
                         <div className="flex justify-between">
                             <button onClick={closeEditCategoryModal} className="flex justify-center items-center h-8 text-[15px] bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600">Cancelar</button>
@@ -283,7 +336,7 @@ export default function adm() {
                 </Modal>
 
                 <Modal isOpen={modalProduct} children={
-                    <div className="p-6 flex flex-col w-80 z-50">
+                    <div className="p-6 flex flex-col w-96 inset-0 bg-opacity-50 z-50">
                         <h2 className="text-xl font-semibold">Novo produto</h2>
                         <form className="flex flex-col">
                             <label htmlFor="" className="mt-8">Título</label>
@@ -291,7 +344,9 @@ export default function adm() {
                             <label htmlFor="" className="mt-4">Preço</label>
                             <input type="number" placeholder="Preço do produto" value={price} onChange={(e) => { setPrice(Number(e.target.value)) }} className="border-2 rounded-[5px] p-1 mt-2"></input>
                             <label htmlFor="" className="mt-4">Categoria</label>
-                            <input type="number" placeholder="Categoria do produto" value={category} onChange={(e) => { setCategory(Number(e.target.value)) }} className="border-2 rounded-[5px] p-1 mt-2 mb-10"></input>
+                            <input type="number" placeholder="Categoria do produto" value={category} onChange={(e) => { setCategory(Number(e.target.value)) }} className="border-2 rounded-[5px] p-1 mt-2"></input>
+                            <label htmlFor="" className="mt-4">Link da imagem</label>
+                            <input type="string" placeholder="Link da imagem do produto" value={imagem} onChange={(e) => { setImagem(e.target.value) }} className="border-2 rounded-[5px] p-1 mt-2 mb-10"></input>
                         </form>
                         <div className="flex justify-between">
                             <button onClick={closeProductModal} className="flex justify-center items-center h-8 text-[15px] bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600">Cancelar</button>
@@ -302,17 +357,19 @@ export default function adm() {
                 </Modal>
 
                 <Modal isOpen={modalEditProduct} children={
-                    <div className="p-6 flex flex-col w-80 z-50">
+                    <div className="p-6 flex flex-col w-96 inset-0 bg-opacity-50 z-50">
                         <h2 className="text-xl font-semibold">Editar produto</h2>
                         <form className="flex flex-col">
-                            <label htmlFor="" className="mt-8">Título</label>
-                            <input type="text" placeholder="Título do produto" className="border-2 rounded-[5px] p-1 mt-2"></input>
+                            <label htmlFor="" className="mt-8">ID</label>
+                            <input type="text" placeholder="Id do produto" readOnly value={selectedProduct?.id} onChange={(e) => { setIdProduct(Number(e.target.value)) }} className="border-2 rounded-[5px] p-1 mt-2"></input>
+                            <label htmlFor="" className="mt-4">Título</label>
+                            <input type="text" placeholder="Título do produto" value={selectedProduct?.title} onChange={(e) => { setTitle(e.target.value) }} className="border-2 rounded-[5px] p-1 mt-2"></input>
                             <label htmlFor="" className="mt-4">Preço</label>
-                            <input type="number" placeholder="Preço do produto" className="border-2 rounded-[5px] p-1 mt-2"></input>
-                            <label htmlFor="" className="mt-4">Status</label>
-                            <input type="text" placeholder="Status do produto" className="border-2 rounded-[5px] p-1 mt-2"></input>
+                            <input type="number" placeholder="Preço do produto" value={selectedProduct?.price} onChange={(e) => { setPrice(Number(e.target.value)) }} className="border-2 rounded-[5px] p-1 mt-2"></input>
                             <label htmlFor="" className="mt-4">Categoria</label>
-                            <input type="number" placeholder="Categoria do produto" className="border-2 rounded-[5px] p-1 mt-2 mb-10"></input>
+                            <input type="number" placeholder="Categoria do produto" value={selectedProduct?.category} onChange={(e) => { setCategory(Number(e.target.value)) }} className="border-2 rounded-[5px] p-1 mt-2"></input>
+                            <label htmlFor="" className="mt-4">Link da imagem</label>
+                            <input type="string" placeholder="Link da imagem do produto" value={imagem} onChange={(e) => { setImagem(e.target.value) }} className="border-2 rounded-[5px] p-1 mt-2 mb-10"></input>
                         </form>
                         <div className="flex justify-between">
                             <button onClick={closeEditProductModal} className="flex justify-center items-center h-8 text-[15px] bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600">Cancelar</button>
