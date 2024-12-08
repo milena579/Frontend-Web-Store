@@ -48,6 +48,14 @@ export default function adm() {
     const [category, setCategory] = useState<number>();
     const [name, setName] = useState<string>("");
     const [imagem, setImagem] = useState<string>("");
+
+    const [editTitle, setEditTitle] = useState<string>("");
+    const [editStatus, setEditStatus] = useState<boolean>(true);
+    const [editPrice, setEditPrice] = useState<number>();
+    const [editCategory, setEditCategory] = useState<number>();
+    const [editName, setEditName] = useState<string>("");
+    const [editImagem, setEditImagem] = useState<string>("");
+
     const [error, setError] = useState<boolean>(false);
     const router = useRouter();
 
@@ -332,7 +340,7 @@ export default function adm() {
                             <label htmlFor="" className="mt-8">ID</label>
                             <input type="text" placeholder="Id da categoria" readOnly value={selectedCategory?.id} onChange={(e) => { setIdCategory(Number(e.target.value)) }} className="border-2 rounded-[5px] p-1 mt-2"></input>
                             <label htmlFor="" className="mt-4">Nome</label>
-                            <input type="text" placeholder="Nome da categoria" value={selectedCategory?.name} onChange={(e) => { setName(e.target.value) }} className="border-2 rounded-[5px] p-1 mt-2 mb-10"></input>
+                            <input type="text" placeholder="Nome da categoria" value={selectedCategory?.name} onChange={(e) => { setEditName(e.target.value) }} className="border-2 rounded-[5px] p-1 mt-2 mb-10"></input>
                         </form>
                         <div className="flex justify-between">
                             <button onClick={closeEditCategoryModal} className="flex justify-center items-center h-8 text-[15px] bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600">Cancelar</button>
@@ -370,13 +378,13 @@ export default function adm() {
                             <label htmlFor="" className="mt-8">ID</label>
                             <input type="text" placeholder="Id do produto" readOnly value={selectedProduct?.id} onChange={(e) => { setIdProduct(Number(e.target.value)) }} className="border-2 rounded-[5px] p-1 mt-2"></input>
                             <label htmlFor="" className="mt-4">Título</label>
-                            <input type="text" placeholder="Título do produto" value={selectedProduct?.title} onChange={(e) => { setTitle(e.target.value) }} className="border-2 rounded-[5px] p-1 mt-2"></input>
+                            <input type="text" placeholder={selectedProduct?.title} value={editTitle} onChange={(e) => { setEditTitle(e.target.value) }} className="border-2 rounded-[5px] p-1 mt-2"></input>
                             <label htmlFor="" className="mt-4">Preço</label>
-                            <input type="number" placeholder="Preço do produto" value={selectedProduct?.price} onChange={(e) => { setPrice(Number(e.target.value)) }} className="border-2 rounded-[5px] p-1 mt-2"></input>
+                            <input type="number" placeholder="Preço do produto" value={selectedProduct?.price} onChange={(e) => { setEditPrice(Number(e.target.value)) }} className="border-2 rounded-[5px] p-1 mt-2"></input>
                             <label htmlFor="" className="mt-4">Categoria</label>
-                            <input type="number" placeholder="Categoria do produto" value={selectedProduct?.category} onChange={(e) => { setCategory(Number(e.target.value)) }} className="border-2 rounded-[5px] p-1 mt-2"></input>
+                            <input type="number" placeholder="Categoria do produto" value={selectedProduct?.category} onChange={(e) => { setEditCategory(Number(e.target.value)) }} className="border-2 rounded-[5px] p-1 mt-2"></input>
                             <label htmlFor="" className="mt-4">Link da imagem</label>
-                            <input type="string" placeholder="Link da imagem do produto" value={imagem} onChange={(e) => { setImagem(e.target.value) }} className="border-2 rounded-[5px] p-1 mt-2 mb-10"></input>
+                            <input type="string" placeholder="Link da imagem do produto" value={imagem} onChange={(e) => { setEditImagem(e.target.value) }} className="border-2 rounded-[5px] p-1 mt-2 mb-10"></input>
                         </form>
                         <div className="flex justify-between">
                             <button onClick={closeEditProductModal} className="flex justify-center items-center h-8 text-[15px] bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600">Cancelar</button>
