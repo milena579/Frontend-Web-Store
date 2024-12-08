@@ -221,12 +221,12 @@ export default function adm() {
 
     
     const closeCategoryModal = () => setModalCategory(false);
-    const openCategoryModal = () => setModalEditCategory(true);
+    const openCategoryModal = () => setModalCategory(true);
     const closeEditCategoryModal = () => setModalEditCategory(false);
     
     const openEditCategoryModal = (data: ICategory) => {
         setSelectedCategory(data);
-        setModalCategory(true);
+        setModalEditCategory(true);
     }
 
     const openProductModal = () => setModalProduct(true);
