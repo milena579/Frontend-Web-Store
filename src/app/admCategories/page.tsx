@@ -1,6 +1,6 @@
 'use client';
 
-import { Menu } from "@/componets/menu/menu";
+import { MenuAdm } from "@/componets/menuAdm/menuAdm";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
@@ -173,7 +173,7 @@ export default function admCategories() {
 
     return (
         <>
-            <Menu op1=""></Menu>
+            <MenuAdm op1=""></MenuAdm>
             <div className="mt-16">
                 <div className="flex justify-end mr-28 gap-16">
                     <button onClick={() => setModalCategory(true)} className="bg-cyan-300/50 p-1 pl-6 pr-6 rounded-[5px]">Nova categoria</button>

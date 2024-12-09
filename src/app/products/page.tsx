@@ -14,6 +14,7 @@ interface IProduto {
   price: number;
   status: boolean;
   category: number;
+  image: string;
 }
 
 interface ICart {
@@ -41,6 +42,7 @@ const VerProdutos = () => {
             price: 0,
             status: false,
             category: 0,
+            image: ""
           },
         ]);
         setError("Erro ao carregar produtos");
@@ -90,7 +92,7 @@ const VerProdutos = () => {
         {produtos.map((item, index) => (
           <Card
             key={`${item.id}-${index}`} // Garante chave única
-            imagem="https://images.tcdn.com.br/img/img_prod/1117770/colar_coracao_pequeno_personalizado_folheado_em_prata_ate_duas_letras_corrente_veneziana_527_2_4a276b18647953a1030527405f826141.jpg"
+            imagem={item.image? item.image : "https://www.goiania.go.leg.br/imagens/sem-foto/image"}
             titulo={item.title}
             preco={item.price}
             status={item.status}
