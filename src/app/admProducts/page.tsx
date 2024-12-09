@@ -20,7 +20,7 @@ interface IProduto {
     price: number,
     status: boolean,
     category: number,
-    imagem: string
+    image: string
 }
 
 export default function admProducts() {
@@ -34,7 +34,7 @@ export default function admProducts() {
     const [status, setStatus] = useState<boolean>(true);
     const [price, setPrice] = useState<number>();
     const [category, setCategory] = useState<number>();
-    const [imagem, setImagem] = useState<string>("");
+    const [image, setImage] = useState<string>("");
     
     const [error, setError] = useState<boolean>(false);
     const [selectedProduct, setSelectedProduct] = useState<IProduto>();
@@ -63,7 +63,7 @@ export default function admProducts() {
         category: 0,
         price: 0,
         status: true,
-        imagem: ""
+        image: ""
     });
 
     const products = async () => {
@@ -76,14 +76,14 @@ export default function admProducts() {
             console.log(data);
 
         } catch (error) {
-            setDataProducts([{ "id": 0, "title": "ERRO AO CARREGAR PRODUTOS", "price": 0, "status": false, "category": 0, "imagem": "undefined" }]);
+            setDataProducts([{ "id": 0, "title": "ERRO AO CARREGAR PRODUTOS", "price": 0, "status": false, "category": 0, "image": "undefined" }]);
         }
     };
 
 
     const addProduct = async () => {
         try {
-            if(title == "" || price == null || category == null || status == null || imagem == ""){
+            if(title == "" || price == null || category == null || status == null || image == ""){
                 alert("Todos os campos devem ser preenchidos!")
                 return
             }
@@ -99,7 +99,7 @@ export default function admProducts() {
                     category: category,
                     price: price,
                     status: true,
-                    imagem: imagem
+                    image: image
                 }),
             });
 
@@ -113,7 +113,7 @@ export default function admProducts() {
                 setTitle("");
                 setPrice(0);
                 setCategory(0);
-                setImagem("");
+                setImage("");
                 products();
             }
 
@@ -144,7 +144,7 @@ export default function admProducts() {
                     category: productData.category,
                     price: productData.price,
                     status: productData.status,
-                    imagem: productData.imagem
+                    image: productData.image
                 }),
             });
 
@@ -181,7 +181,7 @@ export default function admProducts() {
                     category: productData.category,
                     price: productData.price,
                     status: productData.status,
-                    imagem: productData.imagem
+                    imagem: productData.image
                 }),
             });
 
@@ -261,7 +261,7 @@ export default function admProducts() {
                                     <label htmlFor="" className="mt-4">Categoria</label>
                                     <input type="number" placeholder="Categoria do produto" value={category} onChange={(e) => { setCategory(Number(e.target.value)) }} className="border-2 rounded-[5px] p-1 mt-2"></input>
                                     <label htmlFor="" className="mt-4">Link da imagem</label>
-                                    <input type="string" placeholder="Link da imagem do produto" value={imagem} onChange={(e) => { setImagem(e.target.value) }} className="border-2 rounded-[5px] p-1 mt-2 mb-10"></input>
+                                    <input type="string" placeholder="Link da imagem do produto" value={image} onChange={(e) => { setImage(e.target.value) }} className="border-2 rounded-[5px] p-1 mt-2 mb-10"></input>
                                 </form>
                                 <div className="flex justify-between">
                                     <button onClick={() => setModalProduct(false)} className="flex justify-center items-center h-8 text-[15px] bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600">Cancelar</button>
@@ -284,7 +284,7 @@ export default function admProducts() {
                                 <label htmlFor="" className="mt-4">Categoria</label>
                                 <input type="number" placeholder="Categoria do produto" value={productData.category} onChange={(e) => setProductData((prev) => ({ ...prev, category: Number(e.target.value) }))} disabled={!isDisabled} className="border-2 rounded-[5px] p-1 mt-2"></input>
                                 <label htmlFor="" className="mt-4">Link da imagem</label>
-                                <input type="string" placeholder="Link da imagem do produto" value={productData.imagem} onChange={(e) => setProductData((prev) => ({ ...prev, imagem: e.target.value }))} disabled={!isDisabled} className="border-2 rounded-[5px] p-1 mt-2 mb-10"></input>
+                                <input type="string" placeholder="Link da imagem do produto" value={productData.image} onChange={(e) => setProductData((prev) => ({ ...prev, image: e.target.value }))} disabled={!isDisabled} className="border-2 rounded-[5px] p-1 mt-2 mb-10"></input>
                             </form>
                             <div className="flex justify-between">
                                 <button onClick={() => setModalEditProduct(false)} className="flex justify-center items-center h-8 text-[15px] bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600">Cancelar</button>
