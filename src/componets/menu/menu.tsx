@@ -60,11 +60,13 @@ export const Menu: React.FC<IMenu> = ({ op1 }) => {
                     <Link href={ROUTES.products}>Produtos</Link>
                     <div className="funcoes items-center">
                         <Image width={24} height={24} src={cart} alt="carrinho" priority></Image>
-
-                        <div className='flex items-center gap-4 justify-around w-[30%]'>
-                            <Link href={ROUTES.profile}><Image width={54} height={24} src={user} alt="user"></Image>  </Link>
-                            <h1 className='opacity-100'>Olá {userName || op1 || "Visitante"}</h1>
-                        </div>
+                        
+                        <Link href={ROUTES.profile}>
+                          <div className='flex items-center gap-4 justify-around w-[30%]'>
+                              <Image width={54} height={24} src={user} alt="user"></Image> 
+                              <h1 className='opacity-100'>{userName || op1 || "Logar"}</h1>
+                          </div>                   
+                        </Link>
                     </div>
                 </div>
             </nav>

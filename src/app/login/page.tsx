@@ -49,7 +49,12 @@ export default function Login(){
                 setError(false);
                 setEmail("")
                 setSenha("")
-                router.push(ROUTES.products)
+
+                if (result.message === "Bem-vindo, Administrador!") {
+                    router.push(ROUTES.adm); // ARRUMAR ROTA DPS
+                } else {
+                    router.push(ROUTES.products); 
+                }
             }
             console.log(result)
 
@@ -59,11 +64,6 @@ export default function Login(){
     }
 
     const Cadastrar = async () => {
-
-        if(cadNome == "" || cadEmail == "" || cadCpf == "" || cadSenha == ""){
-            alert("Todos os campos devem ser preenchidos!")
-        }
-
         if(cadConfiSenha != cadSenha){
             alert("A senhas devem ser iguais")
         }
@@ -84,8 +84,10 @@ export default function Login(){
             });
 
             console.log(response);
+            const result = await response.text();
 
             if(response.status >= 400 && response.status < 500){
+                alert(result)
                 response.status
                 setError(true)
             }else{
