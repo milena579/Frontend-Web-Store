@@ -25,8 +25,8 @@ const nextConfig = {
             destination: "/profile"
         },
         {
-          source: "/adm",
-          destination: "/adm"
+          source: "/admProducts",
+          destination: "/admProducts"
         },
         {
           source: "/admCategories",

@@ -2,7 +2,7 @@
 
 import { ROUTES } from "@/constants/routes"
 import { Card } from "@/componets/card/card";
-import { Menu } from "@/componets/menu/menu";
+import { MenuAdm } from "@/componets/menuAdm/menuAdm";
 import { Modal } from "@/componets/modal/modal";
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -13,6 +13,8 @@ import { useRouter } from "next/navigation";
 import pencil from "@/app/assets/pencil.png";
 import trash from "@/app/assets/delete.png"
 import { title } from "process";
+
+const imgPadrao = "https://www.goiania.go.leg.br/imagens/sem-foto/image";
 
 interface IProduto {
     id: number,
@@ -208,14 +210,14 @@ export default function admProducts() {
 
     return (
         <>
-            <Menu op1=""></Menu>
+            <MenuAdm op1=""></MenuAdm>
             <div className="mt-16">
                 <div className="flex justify-end mr-28 gap-16">
                     <button onClick={() => setModalProduct(true)} className="bg-cyan-300/50 p-1 pl-6 pr-6 rounded-[5px]">Novo produto</button>
                 </div>
 
                 <div className="mt-16 flex justify-center">
-                    <div className={(modalProduct || modalEditProduct) ? "mt-4 overflow-x-auto max-h-[450px] w-[70%] m-8" : "mt-4 overflow-x-auto max-h-[350px] w-[100%] m-8"}>
+                    <div className={(modalProduct || modalEditProduct) ? "mt-4 overflow-x-auto max-h-[450px] w-[70%] m-8" : "mt-4 overflow-x-auto max-h-[350px] w-[100%] m-48"}>
                         <table className="w-full bg-gray-50">
                             <thead className="w-full items-center flex-col flex ">
                                 <tr className="p-5 border-b-2 w-full flex justify-center">
