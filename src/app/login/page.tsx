@@ -51,7 +51,7 @@ export default function Login(){
                 setSenha("")
 
                 if (result.message === "Bem-vindo, Administrador!") {
-                    router.push(ROUTES.adm); // ARRUMAR ROTA DPS
+                    router.push(ROUTES.admProducts); // ARRUMAR ROTA DPS
                 } else {
                     router.push(ROUTES.products); 
                 }
