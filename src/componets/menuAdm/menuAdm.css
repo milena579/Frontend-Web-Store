@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Imperial+Script&family=Mea+Culpa&family=Poppins&display=swap');
+
 
 *{
     padding: 0px;
@@ -12,6 +14,26 @@
     padding: 15px 80px 15px 80px;
     align-items: center;
     width: 100%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    gap: 20px;
+}
+
+.logo img {
+    width: 30px;
+    height: 100%;
+}
+
+.logo h3{
+    font-family: "Great Vibes", cursive;
+    font-weight:500;
+    font-style: normal;
+    font-size: xx-large;
+    color: rgb(4, 102, 105);
 }
 
 .funcoes{

@@ -6,6 +6,7 @@ import './menuAdm.css';
 import {ROUTES} from "@/constants/routes"
 import Image from "next/image";
 import cart from "@/app/assets/shopping-cart.png";
+import logo from "@/app/favicon.ico"
 import user from "@/app/assets/user.png";
 import { useEffect, useState } from 'react';
 
@@ -54,7 +55,8 @@ export const MenuAdm: React.FC<IMenu> = ({ op1 }) => {
                 <div className="menu w-full">
                     <Link href={ROUTES.admProducts}>
                         <div className="logo">
-                            <p>Prata real</p>
+                            <Image width={24} height={24} src={logo} alt="logo" priority/>
+                            <h3>Prata real</h3>
                         </div>
                     </Link>
                     <Link href={ROUTES.admProducts}>Produtos</Link>
