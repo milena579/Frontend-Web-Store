@@ -103,6 +103,11 @@ export default function adm() {
 
     const addCategory = async () => {
         try {
+            if(name == ""){
+                alert("Todos os campos devem ser preenchidos!")
+                return
+            }
+
             const response =  await fetch('http://localhost:8080/category', {
                 method: 'POST',
                 headers: {
@@ -114,10 +119,6 @@ export default function adm() {
                 }),
             });
 
-            if(name == ""){
-                alert("Todos os campos devem ser preenchidos!")
-                return
-            }
 
             const result = await response.json();
             if(response.status === 500){

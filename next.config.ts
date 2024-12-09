@@ -27,6 +27,10 @@ const nextConfig = {
         {
           source: "/adm",
           destination: "/adm"
+        },
+        {
+          source: "/admCategories",
+          destination: "/admCategories"
         }
       ]
   }
