@@ -8,7 +8,7 @@ import Image from "next/image";
 import banner from "@/app/assets/banner.png";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { Card } from "@/componets/card/card";
 
 interface IProduto {
