@@ -1,2 +1,2 @@
-# Loja-De-Roupa
+# Frontend-Web-Store
  Repositório destinado para o trabalho final da matéria de WEB1 onde consiste em fazer um CRUD
