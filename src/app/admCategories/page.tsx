@@ -22,6 +22,7 @@ export default function admCategories() {
     const [editName, setEditName] = useState<string>("");
     const [error, setError] = useState<boolean>(false);
     const [selectedCategory, setSelectedCategory] = useState<ICategory>();
+    const [isDisabled, setDisabled] = useState(false);
 
     useEffect(() => {
         if (modalCategory) {
@@ -31,7 +32,14 @@ export default function admCategories() {
         if (modalEditCategory) {
             setModalCategory(false);
         }
-    }, [modalCategory, modalEditCategory]);
+
+        if (selectedCategory) {
+            setCategoryData(selectedCategory);
+            setIdCategory(selectedCategory.id)
+        }
+
+        categories();
+    }, [modalCategory, modalEditCategory,selectedCategory]);
 
     const [categoryData, setCategoryData] = useState<ICategory>({
         id: 0,
@@ -52,10 +60,6 @@ export default function admCategories() {
             setDataCategories([{ "id": 0, "name": "ERRO AO CARREGAR CATEGORIAS" }]);
         }
     };
-
-    useEffect(() => {
-        categories();
-    }, []);
 
     const addCategory = async () => {
         try {
@@ -98,15 +102,17 @@ export default function admCategories() {
             return;
         }
 
+        console.log(idCategory)
+
         try {
-            const response = await fetch(`http://localhost:8080/category/?id=${idCategory}`, {
+            const response = await fetch(`http://localhost:8080/category/${categoryData.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'authorization': `${sessionStorage.getItem("Token")}`
                 },
                 body: JSON.stringify({
-                    name: name
+                    name: categoryData.name
                 }),
             });
 
@@ -126,10 +132,43 @@ export default function admCategories() {
         }
     }
 
+    const deleteCategory = async (data: ICategory) => {
+
+        console.log(data.id);
+
+        try {
+            const response = await fetch(`http://localhost:8080/category/${data.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `${sessionStorage.getItem("Token")}`
+                },
+                body: JSON.stringify({
+                    id: categoryData.id,
+                    name: categoryData.name
+                }),
+            });
+
+            if (!response.ok) {
+                alert(`Erro ao deletar categoria`);
+                setError(true);
+            } else {
+                alert("Categoria deletada com sucesso!");
+                setError(false);
+                categories();
+            }
+        } catch (error) {
+            console.error("Erro ao deletar os dados de categoria:", error);
+            alert("Erro ao deletar os dados.");
+            setError(true);
+        }
+    }
+
 
     const openEditCategoryModal = (data: ICategory) => {
         setSelectedCategory(data);
         setModalEditCategory(true);
+        setDisabled(!isDisabled);
     }
 
     return (
@@ -160,8 +199,8 @@ export default function admCategories() {
                                         <tr key={item.id} className="flex w-full h-14">
                                             <td className="justify-center flex w-[25%] h-full border-b-2 p-2">{item.id}</td>
                                             <td className="justify-start flex w-[25%] h-full border-b-2 p-2">{item.name}</td>
-                                            <td className="justify-center flex w-[25%] h-full border-b-2 p-2"><button onClick={() => { openEditCategoryModal(item) }}><Image src={pencil} alt="" className="w-4 h-4 cursor-pointer" /></button></td>
-                                            <td className="justify-center flex w-[25%] h-full border-b-2 p-2"><Image src={trash} alt="" className="w-4 h-4 cursor-pointer" /></td>
+                                            <td className="justify-center flex w-[25%] h-full border-b-2 p-2"><button onClick={() => { openEditCategoryModal(item)}}><Image src={pencil} alt="" className="w-4 h-4 cursor-pointer" /></button></td>
+                                            <td className="justify-center flex w-[25%] h-full border-b-2 p-2"><button onClick={() => { deleteCategory(item)}}><Image src={trash} alt="" className="w-4 h-4 cursor-pointer"/></button></td>
                                         </tr>
                                     </tbody>
                                 )
@@ -189,9 +228,9 @@ export default function admCategories() {
                                     <h2 className="text-xl font-semibold">Editar categoria</h2>
                                     <form className="flex flex-col">
                                         <label htmlFor="" className="mt-8">ID</label>
-                                        <input type="text" placeholder="Id da categoria" readOnly value={selectedCategory?.id} onChange={(e) => { setIdCategory(Number(e.target.value)) }} className="border-2 rounded-[5px] p-1 mt-2"></input>
+                                        <input type="text" placeholder="Id da categoria" readOnly value={selectedCategory?.id} className="border-2 rounded-[5px] p-1 mt-2"></input>
                                         <label htmlFor="" className="mt-4">Nome</label>
-                                        <input type="text" placeholder="Nome da categoria" value={selectedCategory?.name} onChange={(e) => { setEditName(e.target.value) }} className="border-2 rounded-[5px] p-1 mt-2 mb-10"></input>
+                                        <input type="text" placeholder="Nome da categoria" value={categoryData.name} onChange={(e) => setCategoryData((prev) => ({ ...prev, name: e.target.value }))} disabled={!isDisabled} className="border-2 rounded-[5px] p-1 mt-2 mb-10"></input>
                                     </form>
                                     <div className="flex justify-between">
                                         <button onClick={() => setModalEditCategory(false)} className="flex justify-center items-center h-8 text-[15px] bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600">Cancelar</button>
