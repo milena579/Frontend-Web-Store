@@ -54,7 +54,7 @@ export const Menu: React.FC<IMenu> = ({ op1 }) => {
                 <div className="menu w-full">
                     <Link href={ROUTES.home}>
                         <div className="logo">
-                            <p>Prata real</p>
+                            <h3>Prata real</h3>
                         </div>
                     </Link>
                     <Link href={ROUTES.products}>Produtos</Link>
