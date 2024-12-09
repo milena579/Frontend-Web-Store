@@ -2,13 +2,17 @@ import './footer.css';
 // import imgInsta from '../../assets/instagram.png';
 // import imgWhats from '../../assets/whatsapp.png';
 
+import Image from "next/image";
+import logo from "@/app/favicon.ico";
+
 export const Footer = () => {
     return (
         <>
             <div className="footer bg-teal-500">
                 <div className='title'>
                     <div className="logo">
-                        <p>Nome logo</p>
+                        <Image width={24} height={24} src={logo} alt="logo" priority/>
+                        <h3>Prata real</h3>
                     </div>
                     <div className="icons">
                         {/* <a href='#'><img src={imgInsta} alt=''></img></a>
