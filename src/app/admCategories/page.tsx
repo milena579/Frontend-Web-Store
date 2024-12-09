@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'development') {
   
     console.error = (...args) => {
       // Checa se a mensagem de erro contém "Hydration"
-      if (args[0] && args[0].includes('key')) {
+      if (args[0] && args[0].includes('key', 'component')) {
         return; // Supressão: não mostra erros de hidratação
       }
       

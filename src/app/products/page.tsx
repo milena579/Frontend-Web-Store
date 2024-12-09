@@ -62,15 +62,15 @@ const VerProdutos = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:8080/user", {
+      const response = await fetch("http://localhost:8080/cart", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: token,
+          'authorization': `${sessionStorage.getItem("Token")}`
         },
         body: JSON.stringify({
-          quantidade: 1, // Quantidade fixa ou variável
-          produto: produtoId,
+          quantity: 1, // Quantidade fixa ou variável
+          product: produtoId,
         }),
       });
 

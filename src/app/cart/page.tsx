@@ -1,14 +1,35 @@
 "use client"
 
 import { Menu } from '@/componets/menu/menu';
-import React, { useState } from "react";
+import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from "react";
+
+if (process.env.NODE_ENV === 'development') {
+  const originalConsoleError = console.error;
+
+  console.error = (...args) => {
+    // Checa se a mensagem de erro contém "Hydration"
+    if (args[0] && args[0].includes('key')) {
+      return; // Supressão: não mostra erros de hidratação
+    }
+    
+    // Para qualquer outro erro, exibe normalmente
+    originalConsoleError.apply(console, args);
+  };
+}
+
+interface IProduto {
+  id: number;
+  title: string;
+  price: number;
+  quantity: number;
+  totalPrice: number;
+}
 
 const Carrinho = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [produtoParaRemover, setProdutoParaRemover] = useState(null);
-  const [cupom, setCupom] = useState("");
-  const [cupomStatus, setCupomStatus] = useState("");
 
   const abrirModal = () => {
     // setProdutoParaRemover(id);
@@ -38,6 +59,34 @@ const Carrinho = () => {
     // );
   };
 
+  const [produtos, setProdutos] = useState<IProduto[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchProdutos = async () => {
+      try {
+        const res = await fetch(`http://localhost:8080/cart`);
+        if (!res.ok) throw new Error("Erro ao buscar produtos do carrinho");
+        const data = await res.json();
+        setProdutos(data);
+      } catch (err) {
+        setProdutos([
+          {
+            id: 0,
+            title: "ERRO AO CARREGAR PRODUTO",
+            price: 0,
+            quantity: 0,
+            totalPrice: 0
+          },
+        ]);
+        setError("Erro ao carregar produtos do carrinho");
+      }
+    };
+
+    fetchProdutos();
+  }, []);
+
   return (
     <>
       <Menu op1="" ></Menu>
@@ -46,65 +95,21 @@ const Carrinho = () => {
           <h2 className="text-center text-teal-500 mb-6 text-2xl">Meu Carrinho</h2>
 
           <div className="flex justify-between p-4 bg-white mb-4 rounded-lg shadow-md mt-4 overflow-x-auto max-h-[480px] flex-col">
-            <div className='pb-4'>
-              <h3 className="text-lg font-semibold">Item</h3>
-              <p className="text-sm">Preço: R$</p>
-              <div className="flex items-center mt-3">
-                <button className="w-6 bg-gray-300 rounded-md cursor-pointer mr-3" > - </button>
-                <span className="text-sm font-semibold">1</span>
-                <button className="w-6 bg-gray-300 rounded-md cursor-pointer ml-3" > + </button>
+            {produtos.map((item, index) => (
+              <div className='pb-4'>
+                <h3 className="text-lg font-semibold">{item.title}</h3>
+                <p className="text-sm">Preço: R$ {item.price}</p>
+                <div className="flex items-center mt-3">
+                  <button className="w-6 bg-gray-300 rounded-md cursor-pointer mr-3" > - </button>
+                  <span className="text-sm font-semibold">{item.quantity}</span>
+                  <button className="w-6 bg-gray-300 rounded-md cursor-pointer ml-3" > + </button>
+                </div>
               </div>
-            </div>
+              ))}
 
             <hr className='pb-4'/>
 
-            <div className='pb-4'>
-              <h3 className="text-lg font-semibold">Item</h3>
-              <p className="text-sm">Preço: R$</p>
-              <div className="flex items-center mt-3">
-                <button className="w-6 bg-gray-300 rounded-md cursor-pointer mr-3" > - </button>
-                <span className="text-sm font-semibold">1</span>
-                <button className="w-6 bg-gray-300 rounded-md cursor-pointer ml-3" > + </button>
-              </div>
-            </div>
-
-            <hr className='pb-4'/>
-
-            <div className='pb-4'>
-              <h3 className="text-lg font-semibold">Item</h3>
-              <p className="text-sm">Preço: R$</p>
-              <div className="flex items-center mt-3">
-                <button className="w-6 bg-gray-300 rounded-md cursor-pointer mr-3" > - </button>
-                <span className="text-sm font-semibold">1</span>
-                <button className="w-6 bg-gray-300 rounded-md cursor-pointer ml-3" > + </button>
-              </div>
-            </div>
-
-            <hr className='pb-4'/>
-
-            <div className='pb-4'>
-              <h3 className="text-lg font-semibold">Item</h3>
-              <p className="text-sm">Preço: R$</p>
-              <div className="flex items-center mt-3">
-                <button className="w-6 bg-gray-300 rounded-md cursor-pointer mr-3" > - </button>
-                <span className="text-sm font-semibold">1</span>
-                <button className="w-6 bg-gray-300 rounded-md cursor-pointer ml-3" > + </button>
-              </div>
-            </div>
-
-            <hr className='pb-4'/>
-
-            <div className='pb-4'>
-              <h3 className="text-lg font-semibold">Item</h3>
-              <p className="text-sm">Preço: R$</p>
-              <div className="flex items-center mt-3">
-                <button className="w-6 bg-gray-300 rounded-md cursor-pointer mr-3" > - </button>
-                <span className="text-sm font-semibold">1</span>
-                <button className="w-6 bg-gray-300 rounded-md cursor-pointer ml-3" > + </button>
-              </div>
-            </div>
-
-            <hr className='pb-4'/>
+            
 
 
 

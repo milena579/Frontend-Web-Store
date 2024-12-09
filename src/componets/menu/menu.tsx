@@ -61,7 +61,7 @@ export const Menu: React.FC<IMenu> = ({ op1 }) => {
                     </Link>
                     <Link href={ROUTES.products}>Produtos</Link>
                     <div className="funcoes items-center">
-                        <Image width={24} height={24} src={cart} alt="carrinho" priority></Image>
+                        <Link href={ROUTES.cart}><Image width={24} height={24} src={cart} alt="carrinho" priority></Image></Link>
                         
                         <Link href={ROUTES.profile}>
                           <div className='flex items-center gap-4 justify-around w-[30%]'>
