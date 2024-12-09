@@ -117,7 +117,7 @@ export default function Login(){
                         </div>
                         <div className="flex flex-col gap-2 w-full">
                             <label htmlFor="email">Email:</label>
-                            <input type="email" name="email" className="w-full h-8 border p-2" value={email} onChange={(event) => {setEmail(event.target.value)}} />
+                            <input type="email" name="email" placeholder='usuario@email.com' className="w-full h-8 border p-2" value={email} onChange={(event) => {setEmail(event.target.value)}} />
                         </div>
                         <div className="flex flex-col gap-2 w-full">
                             <label htmlFor="senha">Senha:</label>
@@ -138,15 +138,15 @@ export default function Login(){
                     </div>
                     <div className="flex flex-col gap-2 w-full">
                         <label htmlFor="nome">Nome Completo</label>
-                        <input type="text" name="nome" className="w-full h-8 border p-2" value={cadNome} onChange={(event) => {setCadNome(event.target.value)}} />
+                        <input type="text" name="nome" placeholder='nome completo' className="w-full h-8 border p-2" value={cadNome} onChange={(event) => {setCadNome(event.target.value)}} />
                     </div>
                     <div className="flex flex-col gap-2 w-full">
                         <label htmlFor="cpf">CPF</label>
-                        <input type="text" name="cpf" className="w-full h-8 border p-2" value={cadCpf} onChange={(event) => {setCadCpf(event.target.value)}} />
+                        <input type="text" name="cpf" placeholder='xxx.xxx.xxx-xx' className="w-full h-8 border p-2" value={cadCpf} onChange={(event) => {setCadCpf(event.target.value)}} />
                     </div>
                     <div className="flex flex-col gap-2 w-full">
                         <label htmlFor="email">Email:</label>
-                        <input type="email" name="email" className="w-full h-8 border p-2" value={cadEmail} onChange={(event) => {setCadEmail(event.target.value)}} />
+                        <input type="email" name="email" placeholder='usuario@email.com' className="w-full h-8 border p-2" value={cadEmail} onChange={(event) => {setCadEmail(event.target.value)}} />
                     </div>
                     <div className="flex flex-col gap-2 w-full">
                         <label htmlFor="senha">Senha:</label>

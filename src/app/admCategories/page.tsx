@@ -7,6 +7,20 @@ import Image from "next/image";
 import pencil from "@/app/assets/pencil.png";
 import trash from "@/app/assets/delete.png"
 
+if (process.env.NODE_ENV === 'development') {
+    const originalConsoleError = console.error;
+  
+    console.error = (...args) => {
+      // Checa se a mensagem de erro contém "Hydration"
+      if (args[0] && args[0].includes('key')) {
+        return; // Supressão: não mostra erros de hidratação
+      }
+      
+      // Para qualquer outro erro, exibe normalmente
+      originalConsoleError.apply(console, args);
+    };
+  }
+  
 interface ICategory {
     id: number,
     name: string

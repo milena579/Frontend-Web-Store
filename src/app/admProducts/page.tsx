@@ -16,6 +16,20 @@ import { title } from "process";
 
 const imgPadrao = "https://www.goiania.go.leg.br/imagens/sem-foto/image";
 
+if (process.env.NODE_ENV === 'development') {
+    const originalConsoleError = console.error;
+  
+    console.error = (...args) => {
+      // Checa se a mensagem de erro contém "Hydration"
+      if (args[0] && args[0].includes('key')) {
+        return; // Supressão: não mostra erros de hidratação
+      }
+      
+      // Para qualquer outro erro, exibe normalmente
+      originalConsoleError.apply(console, args);
+    };
+  }
+
 interface IProduto {
     id: number,
     title: string,
