@@ -8,6 +8,7 @@ import Image from "next/image";
 import cart from "@/app/assets/shopping-cart.png";
 import user from "@/app/assets/user.png";
 import { useEffect, useState } from 'react';
+import logo from "@/app/favicon.ico"
 
 interface IMenu{
     op1?: string,
@@ -54,6 +55,7 @@ export const Menu: React.FC<IMenu> = ({ op1 }) => {
                 <div className="menu w-full">
                     <Link href={ROUTES.home}>
                         <div className="logo">
+                            <Image width={24} height={24} src={logo} alt="logo" priority/>
                             <h3>Prata real</h3>
                         </div>
                     </Link>

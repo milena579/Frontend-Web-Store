@@ -14,6 +14,18 @@
     width: 100%;
 }
 
+.logo {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    gap: 20px;
+}
+
+.logo img {
+    width: 30px;
+    height: 100%;
+}
+
 .logo h3{
     font-family: "Great Vibes", cursive;
     font-weight:500;
